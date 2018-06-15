@@ -11,5 +11,11 @@ class FirstScript
     puts b
   end
 
+
+  pt_one = "Did you know ... "
+  pt_two = "that the tooth fairy exists."
+
+  puts pt_one + pt_two
+
   #puts "Beta"
 end
