@@ -13,25 +13,30 @@ module WordModule
   end
 
   def print_first_word(words)
-    word = words.shift
-    return word
+    word_array = split_words(words)
+    return word_array.first
   end
-
 
   def print_last_word(words)
-    word = words.pop
-    return word
+    word_array = split_words(words)
+    return word_array.last
   end
 
+
   def break_and_sort(words)
-    return sort_words(split_words(words))
+    return sort_words(words)
   end
 
 
   def print_first_and_last(sentence)
-      words = split_words(sentence)
-      print_first_word(words)
-      print_last_word(words)
+      puts print_first_word(sentence)
+      puts print_last_word(sentence)
+  end
+
+  def print_first_and_last_sorted(sentence)
+    words = break_and_sort(sentence)
+    puts words.first
+    puts words.last
   end
 
 
