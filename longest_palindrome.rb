@@ -10,7 +10,7 @@ def longest_palindrome(s)
 
 
   memo = Array.new(s.length) {Array.new(s.length)}
-
+  #existing_palindromes = Hash.new
 
 
   i = 0
@@ -45,6 +45,12 @@ def longest_palindrome(s)
           memo[i][j] = false
         else
           memo[i][j] = true
+
+          if ((jmax - imax + 1) != (j - i + 1))
+            imax = ((jmax - imax + 1) <= (j - i + 1)) ? i : imax
+            jmax = ((jmax - imax + 1) <= (j - i + 1)) ? j : jmax
+          end
+
         end
       else
         memo[i][j] = false
@@ -55,7 +61,7 @@ def longest_palindrome(s)
     j = i
   end
 
-  return memo
+  return s[imax...(jmax + 1)]
 end
 
 
@@ -90,9 +96,10 @@ end
 #test_two_dimension[1][2] = false
 
 
-mem = longest_palindrome("abcb ")
+mem = longest_palindrome("ararstara")
 
 
-print_two_dimension_array(mem)
+puts mem.to_s
 
 
+# Failing test case = "abababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababa"
