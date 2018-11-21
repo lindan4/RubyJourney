@@ -9,8 +9,8 @@ def longest_palindrome(s)
 
 
 
-  memo = Array.new(s.length) {Array.new(s.length)}
-  #existing_palindromes = Hash.new
+  #memo = Array.new(s.length) {Array.new(s.length)}
+  existing_palindromes = Hash.new
 
 
   i = 0
@@ -23,17 +23,17 @@ def longest_palindrome(s)
     while j < s.length
 
       if s[i] == s[j]
-        r = i
-        t = j
+        r = i + 1
+        t = j - 1
 
+        key_found = false
         while r <= t
-          if memo[r][t] == true
-            puts "Found history and we know that thet substring is a palindrome"
-          elsif memo[r][t] == false
-            puts "Found history and we know that thet substring is a palindrome"
+          if existing_palindromes.has_key?(s[r...(t+1)])
+            key_found = true
             break
           else
             if s[r] != s[t]
+              key_found = false
               break
             end
           end
@@ -41,19 +41,11 @@ def longest_palindrome(s)
           t -= 1
         end
 
-        if r < t
-          memo[i][j] = false
-        else
-          memo[i][j] = true
-
-          if ((jmax - imax + 1) != (j - i + 1))
-            imax = ((jmax - imax + 1) <= (j - i + 1)) ? i : imax
-            jmax = ((jmax - imax + 1) <= (j - i + 1)) ? j : jmax
-          end
-
+        if key_found || r >= t
+          existing_palindromes.store(s[i...(j + 1)], [i, j])
+          imax = ((jmax - imax + 1) <=   (j - i + 1)) ? i : imax
+          jmax = ((jmax - imax + 1) <= (j - i + 1)) ? j : jmax
         end
-      else
-        memo[i][j] = false
       end
       j += 1
     end
@@ -96,10 +88,11 @@ end
 #test_two_dimension[1][2] = false
 
 
-mem = longest_palindrome("ararstara")
+failing_test_case = "abababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababa"
+
+mem = longest_palindrome(failing_test_case)
 
 
 puts mem.to_s
 
 
-# Failing test case = "abababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababa"
