@@ -1,0 +1,13 @@
+Input:
+cfimaakj
+554045874191
+
+Output:
+138511468548
+
+Input:
+ababa
+3
+
+Output:
+2
